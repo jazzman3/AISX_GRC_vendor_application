@@ -1,0 +1,18 @@
+services:
+  app:
+    build: .
+    restart: unless-stopped
+    env_file: .env
+    environment:
+      MODULE: vendor
+      DB_PATH: /data/vendor.db
+    ports:
+      - "127.0.0.1:8204:8000"
+    volumes:
+      - app_data:/data
+    security_opt:
+      - no-new-privileges:true
+    read_only: true
+    tmpfs: [/tmp]
+volumes:
+  app_data:
